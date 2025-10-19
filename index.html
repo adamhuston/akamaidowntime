@@ -38,11 +38,13 @@
 				line-height: 1.6em;
 			}
 			.component {
-				margin: 10px	
+				margin: 10px;
+				align-items: center;
 			}
 			.button {
-				display: inline-block;
-				margin: 5px 10px 5px 0;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
 				padding: 10px 15px;
 				background-color: #ba0c2f;
 				cursor: pointer;
@@ -51,41 +53,84 @@
 				text-align: center;
 				text-transform: uppercase;
 				font-weight: 700;
-			}
-			.button a {
 				color: #fff;
 				text-decoration: none;
+			}
+
+			.button.variant {
+				background-color: #fff !important;
+				color: #000 !important;
+				
+			}
+			.button:hover {
+				background-color: #a50b28;
+				text-decoration: none;
+				color: #fff;
+			}
+			.button.variant:hover {
+				background-color: #fff !important;
+				color: #ba0c2f !important;
+			}
+			.status-bubble {
+				height: 100%;
+				vertical-align: middle;
+			}
+			.status-circle {
+				display: inline-block;
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+				border: 3px solid;
+				margin-right: 5px;
+				vertical-align: middle;
+			}
+			.status-circle.status-pending {
+				border-color: #d8c5a2;
+				background-color: #caa52b;
+			}
+			.status-circle.status-online {
+				border-color: #9bcba6;
+				background-color: #339f4c;
+			}
+			.status-circle.status-offline {
+				border-color: #ed9fa7;
+				background-color: #ec3444;
 			}
 			.button-group {
 				display: flex;
 				flex-wrap: wrap;
-				gap: 10px;
 				width: 100%;
+				background-color: rgb(232, 232, 232);
+				border-color: 1px solid lightgrey;
+				border-radius: 4px;
+				margin-bottom: 20px;
 			}
-			.button-group > div {
+			.button-group > a.button {
 				flex: 1 1 auto;
 			}
 
 			#page {
 				width: 100%;
 				background-color: #fff;
-				display: table;
 				-moz-box-sizing: border-box;
 				-webkit-box-sizing: border-box;
 				box-sizing: border-box;
-				height: 100%;
 			}
 			#innerwrap {
-				display: table-row;
-				height: 100%;
-				width: 100%;
 				background: transparent;
+				height: 100%;
+				padding-bottom: 100px;
 			}
+			
 			#iwfooter {
 				width: 100%;
-				height: 1px;
 				background-color: black;
 				color: #fff;
+				text-align: center;
+				margin-left: 0;
+				margin-right: 0;
+				position: fixed;
+				bottom: 0;
 			}
 			a {
 				text-decoration: none;
@@ -161,13 +206,22 @@
 				display:inline-block;
 			}
 			#iwfooter ul li {
-				float: left;
 				padding-right: 7px;
 				padding-left: 7px;
 				border-right: solid 1px #555;
 			}
 			#iwfooter a {
 				color: #fff;
+			}
+			.list-inline {
+				padding-left: 0;
+				margin-left: -5px;
+				list-style: none;
+				text-align: center;
+			}
+			.list-inline > li {
+				display: inline-block;
+				padding-left: 5px;
 			}
 			#implinks {
 				list-style-type: square;
@@ -181,12 +235,137 @@
 			#contactline {
 				margin-bottom: 3px;
 			}
-			#content
-			{
+			#content{
 				padding: 15px 10% 15px 10%;
 				background-color: transparent;
 				color: #000;
 				text-align: center;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-evenly;
+			}
+			.icon {
+				-webkit-user-select: none;
+				user-select: none;
+				display: inline-block;
+			}
+			.icon-offline {
+				content: -webkit-image-set( url(assets/default_100_percent/100-error-offline.png) 1x, url(assets/default_200_percent/200-error-offline.png) 2x);
+				position: relative;
+			}
+			.hidden {
+				display: none;
+			}
+
+
+			/* Offline page */
+
+			.interstitial-wrapper {
+				color: #2b2b2b;
+				font-size: 1em;
+				line-height: 1.55;
+				margin: 0 auto;
+				max-width: 600px;
+				width: 100%;
+			}
+			.offline .runner-container {
+				height: 150px;
+				max-width: 600px;
+				overflow: hidden;
+				position: absolute;
+				top: 35px;
+				width: 44px;
+			}
+			.offline .runner-canvas {
+				height: 150px;
+				max-width: 600px;
+				opacity: 1;
+				overflow: hidden;
+				position: absolute;
+				top: 0;
+				z-index: 2;
+			}
+			.offline .controller {
+				background: rgba(247, 247, 247, .1);
+				height: 100vh;
+				left: 0;
+				position: absolute;
+				top: 0;
+				width: 100vw;
+				z-index: 1;
+			}
+
+			#offline-resources {
+				display: none;
+			}
+			#main-content{
+				display: none;
+			}
+			@media (max-width: 420px) {
+				.suggested-left > #control-buttons, .suggested-right > #control-buttons {
+					float: none;
+				}
+				.snackbar {
+					left: 0;
+					bottom: 0;
+					width: 100%;
+					border-radius: 0;
+				}
+			}
+
+			@media (max-height: 350px) {
+				h1 {
+					margin: 0 0 15px;
+				}
+				.icon-offline {
+					margin: 0 0 10px;
+				}
+				.interstitial-wrapper {
+					margin-top: 5%;
+				}
+				.nav-wrapper {
+					margin-top: 30px;
+				}
+
+			}
+
+			@media (min-width: 600px) and (max-width: 736px) and (orientation: landscape) {
+				.offline .interstitial-wrapper {
+					margin-left: 0;
+					margin-right: 0;
+				}
+			}
+
+			@media (min-width: 420px) and (max-width: 736px) and (min-height: 240px) and (max-height: 420px) and (orientation:landscape) {
+				.interstitial-wrapper {
+					margin-bottom: 100px;
+				}
+			}
+
+			@media (min-height: 240px) and (orientation: landscape) {
+				.offline .interstitial-wrapper {
+					margin-bottom: 90px;
+				}
+				.icon-offline {
+					margin-bottom: 20px;
+				}
+			}
+
+			@media (max-height: 320px) and (orientation: landscape) {
+				.icon-offline {
+					margin-bottom: 0;
+				}
+				.offline .runner-container {
+					top: 10px;
+				}
+			}
+
+			@media (max-width: 240px) {
+				.interstitial-wrapper {
+					overflow: inherit;
+					padding: 0 8px;
+				}
 			}
 			@media only screen and (max-width: 768px) {
 				#top-bar {
@@ -201,6 +380,13 @@
 					padding-right: 0;
 					text-align: center;
 				}
+				#masthead {
+					position: fixed;
+					width: 100%;
+				}
+				#content {
+					padding-top: 80px;
+				}
 				.button-group {
 					justify-content: center;
 				}
@@ -214,13 +400,13 @@
         <div id="page">
 			<div id="innerwrap">
           		<div id="top-bar">
-           			<div id="top-menu">
+           			<nav id="top-menu">
            				<ul id="nav-list">
-           					<li>				<a href="https://my.bsu.edu/">MyBSU</a></li>
-            				<li>				<a href="https://outlook.com/bsu.edu">Webmail</a></li>
-           					<li>				<a href="https://bsu.service-now.com/helpdesk">Help Desk</a></li>			
+           					<li><a href="https://myballstate.bsu.edu//">MyBallState</a></li>
+            				<li><a href="https://outlook.com/bsu.edu">Webmail</a></li>
+           					<li><a href="https://bsu.service-now.com/helpdesk">Help Desk</a></li>			
            				</ul>
-           			</div>
+           			</nav>
            		</div>
             	<header id="masthead" class="site-header" role="banner">
                 	<div id="header-image">
@@ -228,9 +414,6 @@
                 		<a class="logoContainer" href="https://www.bsu.edu"><img src="https://digitalmarketing.bsu.edu/wp-content/uploads/2017/11/bsu-logo-horiz-dmr.png" alt="Ball State University" /></a>
                 	</div> <!-- #headerImage -->
             	</header>
-            	<nav id="main-nav">
-                	<ul id="mainmenu" class="nav-menu">      	</ul>             
-				</nav>
 
             	<div id="content" class="site-content">
 					<h1>Technical Difficulties</h1>
@@ -240,17 +423,17 @@
 						Thank you for your patience,
 						<br />Ball State University IT
 					</p>
-                 	<h3>Important Links</h3>
-					<div class="button-group">
-						<div class="component button">
-							<a href="https://my.bsu.edu/">MyBSU</a>
-						</div>
-						<div class="component button">
-							<a href="https://outlook.com/bsu.edu">Webmail</a>
-						</div>
-						<div class="component button">
-							<a href="https://bsu.service-now.com/helpdesk">Help Desk</a>
-						</div>
+					<h2>Available Systems</h2>
+					<div class="button-group" id="status-group">
+						<a class="component button variant" href="https://myballstate.bsu.edu/" target="_blank">
+							<span class="status-bubble" data-name="MyBallState" data-ping="https://myballstate.bsu.edu"></span> MyBallState
+						</a>
+						<a class="component button variant" href="https://outlook.com/bsu.edu" target="_blank">
+							<span class="status-bubble" data-name="Outlook" data-ping="https://outlook.com/bsu.edu"></span> Webmail
+						</a>
+						<a class="component button variant" href="https://bsu.service-now.com/helpdesk" target="_blank">
+							<span class="status-bubble" data-name="ServiceNow" data-ping="https://bsu.service-now.com/helpdesk"></span> Help Desk
+						</a>
 					</div>
 					<div id="main-frame-error" class="interstitial-wrapper">
 						<div id="main-content">
@@ -266,6 +449,7 @@
 							</template>
 						</div>
 					</div>
+				</div>
 
 
             	</div> <!-- end content -->                
@@ -275,24 +459,58 @@
 					<div id="contactline">Ball State University 2000 W. University Ave. Muncie, IN 47306 800-382-8540 and 765-289-1241</div>
 					<div id="lastline">
 						<ul class="list-inline">
-    						<li><strong>Copyright © 2021 Ball State University</strong></li>
-    						<li><a href="https://www.bsu.edu/about/administrativeoffices/general-counsel/policies-and-legal-information/equal-opportunity-and-affirmative-action-policy">Equal Opportunity and Affirmative Action Policy</a></li>
+    						<li><strong>Copyright © 2025 Ball State University</strong></li>
+    						<!--<li><a href="https://www.bsu.edu/about/administrativeoffices/general-counsel/policies-and-legal-information/equal-opportunity-and-affirmative-action-policy">Equal Opportunity and Affirmative Action Policy</a></li>
     						<li><a title="Legal Information" href="https://www.bsu.edu/about/administrativeoffices/general-counsel">Legal Information</a></li>
     						<li><a title="TTY Numbers" href="https://www.bsu.edu/about/administrativeoffices/disability-services/about/contact">TTY Numbers</a></li>
+							-->
 						</ul>
 					</div>
 				</div>
             </footer><!-- footer -->           
         </div> <!-- page end -->
-		 
+				
+		<script>
+			(() => {
+			const TIMEOUT_MS=5000;
+
+			const items=[...document.querySelectorAll("#status-group [data-ping]")];
+			items.forEach(span => {
+				span.className = 'status-circle status-pending';
+				span.textContent = '';
+			});
+
+			function ping(url){
+				return new Promise(resolve => {
+					const controller = new AbortController();
+					const timer = setTimeout(() => {
+						controller.abort();
+						resolve(false);
+					}, TIMEOUT_MS);
+
+					fetch(url, { 
+						method: 'HEAD',
+						mode: 'no-cors',
+						signal: controller.signal 
+					})
+					.then(() => {
+						clearTimeout(timer);
+						resolve(true);
+					})
+					.catch(() => {
+						clearTimeout(timer);
+						resolve(false);
+					});
+				});
+			}
+
+			(async () => {
+				for (const span of items) {
+					const ok = await ping(span.dataset.ping);
+					span.className = `status-circle ${ok ? 'status-online' : 'status-offline'}`;
+				}
+			})();
+			})();
+		</script>
     </body>
-	<script>
-		document.onkeydown = function(evt) {
-		evt = evt || window.event;
-		if (evt.keyCode == 32) {
-			var box = document.getElementById("messageBox");
-			box.style.visibility="hidden";
-		}
-	};
-	</script>
 </html>
